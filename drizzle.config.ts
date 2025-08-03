@@ -1,13 +1,11 @@
-import "dotenv/config"; // Asegura que las variables se carguen
+import "dotenv/config";
 import { defineConfig } from "drizzle-kit";
 
 export default defineConfig({
-  schema: "./src/drizzle/schema",
-  out: "./src/drizzle/migrations",
+  out: "./drizzle",
+  schema: "./src/db/schema.ts",
   dialect: "postgresql",
   dbCredentials: {
-    url: process.env.DATABASE_URL!, // El `!` indica que estás seguro de que no es undefined
+    url: process.env.DATABASE_URL!,
   },
-  verbose: true,
-  strict: true,
 });
