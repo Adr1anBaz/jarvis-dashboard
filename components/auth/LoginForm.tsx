@@ -63,7 +63,9 @@ export default function LoginForm() {
 
   return (
     <div className="max-w-sm w-full bg-white p-8 rounded shadow-md">
-      <h2 className="text-2xl font-bold mb-6 text-center">Iniciar sesión</h2>
+      <h2 className="text-2xl font-bold mb-6 text-center text-black">
+        Iniciar sesión
+      </h2>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           {/* email */}
@@ -72,9 +74,13 @@ export default function LoginForm() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Correo electrónico</FormLabel>
+                <FormLabel className="text-black">Correo electrónico</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="Correo electrónico" />
+                  <Input
+                    {...field}
+                    placeholder="Correo electrónico"
+                    className="text-black"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -86,15 +92,20 @@ export default function LoginForm() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Contraseña</FormLabel>
+                <FormLabel className="text-black">Contraseña</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="Contraseña" type="password" />
+                  <Input
+                    {...field}
+                    placeholder="Contraseña"
+                    type="password"
+                    className="text-black"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full">
+          <Button type="submit" className="w-full bg-black text-white">
             {form.formState.isSubmitting ? (
               <Loader2 className="w-4 h-4 mr-2 animate-spin" />
             ) : (
