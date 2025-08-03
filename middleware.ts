@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
+import { verifyJwt } from "@/lib/auth";
 
-export function middleware(request: NextRequest) {
-  const session = request.cookies.get("session")?.value;
+export async function middleware(request: NextRequest) {
+  const token = request.cookies.get("session")?.value;
+  const payload = token ? await verifyJwt(token) : null;
 
-  if (!session && request.nextUrl.pathname.startsWith("/dashboard")) {
+  if (!payload && request.nextUrl.pathname.startsWith("/dashboard")) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
@@ -11,5 +13,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/login"],
+  matcher: ["/dashboard/:path*"],
 };
