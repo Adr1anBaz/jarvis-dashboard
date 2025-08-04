@@ -54,7 +54,8 @@ export default function LoginForm() {
     if (res.ok) {
       window.location.href = "/dashboard";
     } else {
-      toast.error("Error al iniciar sesión. Credenciales inválidas");
+      const error = await res.json();
+      toast.error(error.error);
     }
   };
 
