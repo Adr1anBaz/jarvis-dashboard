@@ -8,6 +8,20 @@ export async function POST(request: NextRequest) {
   const body = await request.json();
   const hashedPassword = await bcrypt.hash(body.password, 10);
   try {
+    // Check if the email already exists
+    const existingUser = await db
+      .select()
+      .from(usuario)
+      .where(eq(usuario.email, body.email))
+      .limit(1);
+
+    if (existingUser.length > 0) {
+      return NextResponse.json(
+        { error: "El email ya está en uso" },
+        { status: 400 }
+      );
+    }
+
     await db.insert(usuario).values({
       nombre: body.nombre,
       email: body.email,
