@@ -4,11 +4,11 @@ import { AppSidebar } from "@/components/dashboard/sidebar";
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <SidebarProvider>
-      <div className="flex h-screen">
+      <div className="flex min-h-screen w-full">
         <AppSidebar />
-        <main className="flex-1 p-6 bg-background text-foreground">
+        <main className="flex-1 px-6 py-8 overflow-y-auto">
           <SidebarTrigger />
-          {children}
+          <div className="max-w-screen-xl w-full mx-auto">{children}</div>
         </main>
       </div>
     </SidebarProvider>
