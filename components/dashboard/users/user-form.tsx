@@ -59,7 +59,13 @@ export default function UserForm({ user, onClose }: UserFormProps) {
     setIsLoading(true);
     try {
       if (user) {
-        // TODO PONER EL UPDATE USER
+        await fetch(`/api/users/${user.id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
+        });
       } else {
         await fetch("/api/users", {
           method: "POST",
