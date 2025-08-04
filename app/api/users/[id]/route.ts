@@ -26,3 +26,20 @@ export async function PATCH(
     return NextResponse.json({ error: "Error interno" }, { status: 500 });
   }
 }
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const id = parseInt(params.id);
+  try {
+    await db
+      .update(usuario)
+      .set({ deletedAt: new Date() })
+      .where(eq(usuario.id, id));
+    return NextResponse.json({ message: "Usuario marcado como eliminado" });
+  } catch (e) {
+    console.error("Error al marcar usuario como eliminado:", e);
+    return NextResponse.json({ error: "Error interno" }, { status: 500 });
+  }
+}
