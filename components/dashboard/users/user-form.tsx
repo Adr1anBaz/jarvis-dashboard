@@ -58,8 +58,9 @@ export default function UserForm({ user, onClose }: UserFormProps) {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
     try {
+      let response;
       if (user) {
-        await fetch(`/api/users/${user.id}`, {
+        response = await fetch(`/api/users/${user.id}`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
@@ -67,7 +68,7 @@ export default function UserForm({ user, onClose }: UserFormProps) {
           body: JSON.stringify(values),
         });
       } else {
-        await fetch("/api/users", {
+        response = await fetch("/api/users", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -75,6 +76,14 @@ export default function UserForm({ user, onClose }: UserFormProps) {
           body: JSON.stringify(values),
         });
       }
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        toast.error(errorData.error || "Error desconocido");
+        router.refresh();
+        return;
+      }
+
       form.reset();
       router.refresh();
       toast.success("Usuario creado/actualizado correctamente");
