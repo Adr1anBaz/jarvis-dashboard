@@ -51,7 +51,7 @@ export default async function UsersTable() {
                 </DialogTrigger>
                 <DialogContent>
                   <DialogHeader>
-                    <DialogTitle>Edit User</DialogTitle>
+                    <DialogTitle>Editar Usuario</DialogTitle>
                   </DialogHeader>
                   <UserForm user={user} />
                 </DialogContent>
