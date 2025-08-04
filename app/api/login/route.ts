@@ -29,7 +29,11 @@ export async function POST(req: Request) {
       { status: 403 }
     );
   }
-  const token = await signJwt({ id: user.id, email: user.email });
+  const token = await signJwt({
+    id: user.id,
+    email: user.email,
+    rolId: user.rolId,
+  });
 
   (await cookies()).set("session", token, {
     path: "/",

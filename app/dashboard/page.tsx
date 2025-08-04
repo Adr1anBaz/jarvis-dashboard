@@ -26,7 +26,13 @@ export default async function DashboardPage() {
         </CardHeader>
         <CardContent className="space-y-4 text-black">
           <div className="flex items-center space-x-2">
-            <User className="w-5 h-5 text-gray-600" />
+            {payload.rolId === 1 ? (
+              <User className="w-5 h-5 text-blue-600" aria-label="Superadmin" />
+            ) : payload.rolId === 2 ? (
+              <User className="w-5 h-5 text-green-600" aria-label="Admin" />
+            ) : (
+              <User className="w-5 h-5 text-gray-600" />
+            )}
             <span className="text-sm">ID de usuario: {payload.id}</span>
           </div>
           <div className="flex items-center space-x-2">
