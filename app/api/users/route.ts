@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/src/index";
 import { usuario } from "@/src/db/schema";
-import { eq } from "drizzle-orm";
+import { eq, isNull } from "drizzle-orm";
 import { sql } from "drizzle-orm"; // 👈 Importante para contar registros
 import bcrypt from "bcryptjs";
 
@@ -15,12 +15,18 @@ export async function GET(request: NextRequest) {
   const offset = (page - 1) * perPage;
 
   // 🔄 Consulta paginada
-  const users = await db.select().from(usuario).limit(perPage).offset(offset);
+  const users = await db
+    .select()
+    .from(usuario)
+    .limit(perPage)
+    .offset(offset)
+    .where(isNull(usuario.deletedAt));
 
   // 🧮 Total de usuarios (opcional pero útil)
   const [{ count }] = await db
     .select({ count: sql<number>`COUNT(*)` })
-    .from(usuario);
+    .from(usuario)
+    .where(isNull(usuario.deletedAt));
 
   return NextResponse.json({
     data: users,
