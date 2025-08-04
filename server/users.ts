@@ -2,12 +2,15 @@
 
 import { db } from "@/src/index";
 import { usuario } from "@/src/db/schema";
-import { eq } from "drizzle-orm";
+import { eq, isNull } from "drizzle-orm";
 import { Usuario } from "@/src/db/schema";
 
 export async function getUsers() {
   try {
-    const users = await db.select().from(usuario);
+    const users = await db
+      .select()
+      .from(usuario)
+      .where(isNull(usuario.deletedAt));
     return users;
   } catch (error) {
     console.error("Error al obtener los usuarios:", error);
