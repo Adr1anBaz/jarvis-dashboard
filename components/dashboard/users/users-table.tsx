@@ -7,7 +7,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { getUsers } from "@/server/users";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -16,6 +15,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Usuario } from "@/src/db/schema";
+import { getUsers } from "@/server/users";
 
 export default async function UsersTable() {
   const users = await getUsers();
@@ -32,7 +33,7 @@ export default async function UsersTable() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {users.map((user) => (
+        {users.map((user: Usuario) => (
           <TableRow key={user.id}>
             <TableCell>{user.id}</TableCell>
             <TableCell>{user.nombre}</TableCell>
