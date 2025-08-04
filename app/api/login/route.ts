@@ -17,11 +17,23 @@ export async function POST(req: Request) {
 
   if (!user || user.password !== password) {
     return NextResponse.json(
-      { error: "Credenciales inválidas" },
+      { error: "Credenciales inválidas." },
       { status: 401 }
     );
   }
-  const token = await signJwt({ id: user.id, email: user.email });
+  // verificando si el rol del usuario está permitido
+  const rolPermitdo = [1, 2]; // Superadmin o moderador
+  if (!rolPermitdo.includes(user.rolId!)) {
+    return NextResponse.json(
+      { error: "No tienes permisos para acceder a esta aplicación." },
+      { status: 403 }
+    );
+  }
+  const token = await signJwt({
+    id: user.id,
+    email: user.email,
+    rolId: user.rolId,
+  });
 
   (await cookies()).set("session", token, {
     path: "/",
