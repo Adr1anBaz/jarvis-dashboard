@@ -174,6 +174,8 @@ export const usuario = pgTable(
   ]
 );
 
+export type Usuario = typeof usuario.$inferSelect;
+
 export const correoAsociado = pgTable(
   "correo_asociado",
   {
