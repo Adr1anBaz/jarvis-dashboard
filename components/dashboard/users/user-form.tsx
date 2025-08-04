@@ -29,6 +29,7 @@ import {
 interface UserFormProps {
   user?: Usuario;
   onClose?: () => void; // Add a prop to handle form closure
+  onSuccess?: () => void;
 }
 
 const formSchema = z.object({
@@ -42,7 +43,7 @@ const formSchema = z.object({
   rolId: z.number().min(1, { message: "El rol es requerido" }),
 });
 
-export default function UserForm({ user, onClose }: UserFormProps) {
+export default function UserForm({ user, onClose, onSuccess }: UserFormProps) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -80,13 +81,14 @@ export default function UserForm({ user, onClose }: UserFormProps) {
       if (!response.ok) {
         const errorData = await response.json();
         toast.error(errorData.error || "Error desconocido");
-        router.refresh();
+        onSuccess?.();
         return;
       }
 
       form.reset();
-      router.refresh();
       toast.success("Usuario creado/actualizado correctamente");
+      onSuccess?.();
+      onClose?.();
     } catch (error) {
       console.error("Error al crear/actualizar el usuario:", error);
       toast.error("Error al crear/actualizar el usuario");

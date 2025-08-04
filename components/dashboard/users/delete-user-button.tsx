@@ -12,16 +12,18 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 
 interface DeleteUserButtonProps {
   userId: string;
+  onSuccess?: () => void;
 }
 
-export default function DeleteUserButton({ userId }: DeleteUserButtonProps) {
+export default function DeleteUserButton({
+  userId,
+  onSuccess,
+}: DeleteUserButtonProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const router = useRouter();
   const handleDelete = async () => {
     setIsLoading(true);
     try {
@@ -31,7 +33,7 @@ export default function DeleteUserButton({ userId }: DeleteUserButtonProps) {
       setIsLoading(false);
       toast.success("Usuario eliminado correctamente");
       setIsOpen(false);
-      router.refresh();
+      onSuccess?.();
     } catch (error) {
       console.error(error);
       setIsLoading(false);

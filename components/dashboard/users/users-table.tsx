@@ -30,7 +30,13 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
-export default function UsersTable() {
+export default function UsersTable({
+  refreshKey = 0,
+  onRefresh,
+}: {
+  refreshKey: number;
+  onRefresh: () => void;
+}) {
   const [users, setUsers] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -46,7 +52,7 @@ export default function UsersTable() {
       setTotalPages(json.totalPages);
     };
     fetchUsers();
-  }, [page]);
+  }, [page, refreshKey]);
 
   const handlePageChange = (page: number) => {
     setPage(page);
@@ -83,10 +89,13 @@ export default function UsersTable() {
                     <DialogHeader>
                       <DialogTitle>Editar Usuario</DialogTitle>
                     </DialogHeader>
-                    <UserForm user={user} />
+                    <UserForm user={user} onSuccess={onRefresh} />
                   </DialogContent>
                 </Dialog>
-                <DeleteUserButton userId={user.id.toString()} />
+                <DeleteUserButton
+                  userId={user.id.toString()}
+                  onSuccess={onRefresh}
+                />
               </TableCell>
             </TableRow>
           ))}
