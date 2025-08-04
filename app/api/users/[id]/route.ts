@@ -27,6 +27,7 @@ export async function PATCH(
   }
 }
 
+// SOFT DELETE. Considerar que no se podrá volver a usar el email del usuario eliminado.
 export async function DELETE(
   request: NextRequest,
   { params }: { params: { id: string } }
