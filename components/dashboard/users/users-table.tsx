@@ -19,6 +19,7 @@ import { Usuario } from "@/src/db/schema";
 import { getUsers } from "@/server/users";
 import UserForm from "./user-form";
 import { Pencil } from "lucide-react";
+import DeleteUserButton from "./delete-user-button";
 
 export default async function UsersTable() {
   const users = await getUsers();
@@ -55,6 +56,7 @@ export default async function UsersTable() {
                   <UserForm user={user} />
                 </DialogContent>
               </Dialog>
+              <DeleteUserButton userId={user.id.toString()} />
             </TableCell>
           </TableRow>
         ))}
