@@ -17,6 +17,8 @@ import {
 } from "@/components/ui/dialog";
 import { Usuario } from "@/src/db/schema";
 import { getUsers } from "@/server/users";
+import UserForm from "./user-form";
+import { Pencil } from "lucide-react";
 
 export default async function UsersTable() {
   const users = await getUsers();
@@ -39,7 +41,21 @@ export default async function UsersTable() {
             <TableCell>{user.nombre}</TableCell>
             <TableCell className="font-medium">{user.email}</TableCell>
             <TableCell>{user.rolId}</TableCell>
-            <TableCell></TableCell>
+            <TableCell>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <Pencil className="w-4 h-4 size-4 ml-2" />
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Edit User</DialogTitle>
+                  </DialogHeader>
+                  <UserForm user={user} />
+                </DialogContent>
+              </Dialog>
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>
