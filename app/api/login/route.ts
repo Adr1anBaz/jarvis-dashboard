@@ -3,7 +3,7 @@ import { usuario } from "@/src/db/schema";
 import { db } from "@/src/index";
 import { eq } from "drizzle-orm";
 import { cookies } from "next/headers";
-import { compare } from "bcrypt"; // TODO: Cambiar a bcryptjs
+import bcrypt from "bcryptjs";
 import { signJwt } from "@/lib/auth";
 
 export async function POST(req: Request) {
@@ -15,7 +15,7 @@ export async function POST(req: Request) {
     .where(eq(usuario.email, email));
   const user = result[0];
 
-  if (!user || user.password !== password) {
+  if (!user || !(await bcrypt.compare(password, user.password))) {
     return NextResponse.json(
       { error: "Credenciales inválidas." },
       { status: 401 }
