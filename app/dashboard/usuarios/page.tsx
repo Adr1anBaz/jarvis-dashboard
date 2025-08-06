@@ -1,5 +1,5 @@
-const UsuariosPage = () => {
-  return <div>UsuariosPage</div>;
-};
+import UsuariosPageClient from "@/components/dashboard/users/usuarios-page-client";
 
-export default UsuariosPage;
+export default function Home() {
+  return <UsuariosPageClient />;
+}

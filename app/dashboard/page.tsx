@@ -17,8 +17,8 @@ export default async function DashboardPage() {
   }
 
   return (
-    <div className="w-full h-full flex items-center justify-center">
-      <Card className="w-full max-w-lg shadow-md border border-gray-200">
+    <div className="w-full max-w-screen-xl mx-auto px-4 py-8">
+      <Card className="w-full shadow-md border border-gray-200">
         <CardHeader>
           <CardTitle className="text-xl font-semibold">
             Bienvenido al Dashboard
