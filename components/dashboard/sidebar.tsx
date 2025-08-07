@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/sidebar";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Home, Users, FileText, LogOut } from "lucide-react";
+import { Home, Users, FileText, LogOut, Ungroup } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 
@@ -33,6 +33,11 @@ const items = [
     title: "Publicaciones",
     url: "/dashboard/publicaciones",
     icon: FileText,
+  },
+  {
+    title: "Grupos",
+    url: "/dashboard/grupos",
+    icon: Ungroup,
   },
 ];
 
