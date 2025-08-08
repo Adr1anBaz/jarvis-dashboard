@@ -105,7 +105,6 @@ export const grupo = pgTable(
     requiereClave: boolean("requiere_clave").default(false),
     claveAcceso: text("clave_acceso"),
     fotoUrl: text("foto_url"),
-    nivel: integer("nivel").default(0),
     createdAt: timestamp("created_at")
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
