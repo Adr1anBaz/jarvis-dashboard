@@ -23,6 +23,8 @@ export const grupoTipo = pgEnum("grupo_tipo", [
   "carrera",
   "comunidad",
 ]);
+export type GrupoTipo = (typeof grupoTipo.enumValues)[number];
+
 export const motivoReporte = pgEnum("motivo_reporte", [
   "spam",
   "acoso",
