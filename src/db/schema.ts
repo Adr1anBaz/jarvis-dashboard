@@ -87,6 +87,8 @@ export const usuarioGrupo = pgTable(
   ]
 );
 
+export type UsuarioGrupo = typeof usuarioGrupo.$inferSelect;
+
 export const grupo = pgTable(
   "grupo",
   {
@@ -119,6 +121,9 @@ export const grupo = pgTable(
     }),
   ]
 );
+
+export type Grupo = typeof grupo.$inferSelect;
+export type GrupoInsert = typeof grupo.$inferInsert;
 
 export const universidad = pgTable("universidad", {
   id: serial().primaryKey().notNull(),
