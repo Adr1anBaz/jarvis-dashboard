@@ -18,12 +18,15 @@ export const estadoReporte = pgEnum("estado_reporte", [
   "resuelto",
   "descartado",
 ]);
-export const grupoTipo = pgEnum("grupo_tipo", [
+export const GRUPO_TIPO_VALUES = [
   "universidad",
   "carrera",
   "comunidad",
-]);
-export type GrupoTipo = (typeof grupoTipo.enumValues)[number];
+] as const;
+
+export const grupoTipo = pgEnum("grupo_tipo", [...GRUPO_TIPO_VALUES]);
+
+export type GrupoTipo = (typeof GRUPO_TIPO_VALUES)[number];
 
 export const motivoReporte = pgEnum("motivo_reporte", [
   "spam",
@@ -102,6 +105,7 @@ export const grupo = pgTable(
     requiereClave: boolean("requiere_clave").default(false),
     claveAcceso: text("clave_acceso"),
     fotoUrl: text("foto_url"),
+    nivel: integer("nivel").default(0),
     createdAt: timestamp("created_at")
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
